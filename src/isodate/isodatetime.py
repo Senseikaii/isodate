@@ -52,9 +52,10 @@ def parse_datetime(datetimestring):
     except ValueError:
         raise ISO8601Error("ISO 8601 time designator 'T' missing. Unable to"
                            " parse datetime string %r" % datetimestring)
-    tmpdate = parse_date(datestring)
-    tmptime = parse_time(timestring)
-    return datetime.combine(tmpdate, tmptime)
+    if datetimestring[0] != '0':
+        tmpdate = parse_date(datestring)
+        tmptime = parse_time(timestring)
+        return datetime.combine(tmpdate, tmptime) 
 
 
 def datetime_isoformat(tdt, format=DATE_EXT_COMPLETE + 'T' +
